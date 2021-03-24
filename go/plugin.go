@@ -9,7 +9,7 @@ import (
 
 const openVault = "openVault"
 
-const channelName = "bitmaelum.flutter.plugins.client"
+const channelName = "bitmaelum_flutter_plugin"
 
 // Plugin implements flutter.Plugin and handles method.
 type Plugin struct {

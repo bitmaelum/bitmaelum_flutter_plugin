@@ -1,0 +1,9 @@
+.idea
+*.aar
+*.framework
+*.jar
+*.cov
+.DS_Store
+vendor/
+output/
+build/
