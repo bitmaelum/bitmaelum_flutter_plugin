@@ -15,9 +15,7 @@ class BitmaelumException implements Exception {
 }
 
 class BitmaelumClientPlugin {
-  static const MethodChannel _channel =
-      const MethodChannel('bitmaelum_flutter_plugin');
-
+  static const MethodChannel _channel = const MethodChannel('bitmaelum_flutter_plugin');
   static bool bindingEnabled = Binding().isSupported();
 
   static Future<Uint8List> _call(String name, Uint8List payload) async {
@@ -29,20 +27,33 @@ class BitmaelumClientPlugin {
 
   static Future<String> _stringResponse(String name, Uint8List payload) async {
     var data = await _call(name, payload);
-
+    
     String myResponse = new String.fromCharCodes(data);
     var jsonResponse = json.decode(myResponse);
-    if (jsonResponse.error != "") {
-        throw new BitmaelumException(jsonResponse["error"].toString());
+    if (jsonResponse["error"] != null) {
+        throw new BitmaelumException(jsonResponse["error"]);
     }
 
-    return jsonResponse["response"].toString();
+    return jsonResponse["response"];
   }
 
-  static Future<String> openVault (String path, String password) async {
-    var myJson = '{"path": "' + path + '", "password": "' + password + '"}';
+  static Future<Object> _jsonResponse(String name, Uint8List payload) async {
+    var data = await _call(name, payload);
+    
+    String myResponse = new String.fromCharCodes(data);
+    var jsonResponse = json.decode(myResponse);
+    if (jsonResponse["error"] != null) {
+        throw new BitmaelumException(jsonResponse["error"]);
+    }
 
-    return await _stringResponse("openVault", Uint8List.fromList(myJson.codeUnits));
+    return jsonResponse["response"];
+  }
+
+
+  static Future<Object> openVault (String path, String password) async {
+    var myJson = '{"path":"' + path + '","password":"' + password + '"}';
+
+    return await _jsonResponse("openVault", Uint8List.fromList(myJson.codeUnits));
   }
 
 }

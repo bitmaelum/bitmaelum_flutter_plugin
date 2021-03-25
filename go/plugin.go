@@ -7,8 +7,6 @@ import (
 	bitmaelumClientLib "github.com/bitmaelum/bitmaelum-client-lib/bridge"
 )
 
-const openVault = "openVault"
-
 const channelName = "bitmaelum_flutter_plugin"
 
 // Plugin implements flutter.Plugin and handles method.
@@ -19,7 +17,7 @@ type Plugin struct {
 var _ flutter.Plugin = &Plugin{} // compile-time type check
 
 func (p *Plugin) InitPlugin(messenger plugin.BinaryMessenger) error {
-	channel := plugin.NewMethodChannel(messenger, channelName, plugin.JSONMethodCodec{})
+	channel := plugin.NewMethodChannel(messenger, channelName, plugin.StandardMethodCodec{})
 	channel.CatchAllHandleFunc(p.catchAll)
 	return nil
 }
