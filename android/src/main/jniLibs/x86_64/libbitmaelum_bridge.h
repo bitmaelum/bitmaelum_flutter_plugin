@@ -74,8 +74,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
-
-extern BytesReturn* BitMaelumClientBridgeCall(char* p0, void* p1, int p2);
+extern BytesReturn* BitMaelumClientBridgeCall(char* name, void* payload, int payloadSize);
 
 #ifdef __cplusplus
 }
